@@ -49,4 +49,4 @@ def index():
             except Exception as e:
                 print('failed on filename: ', filename)
 
-    return render_template('/index.html', candlestick_patterns=candlestick_patterns, stocks=stocks, pattern=pattern)
+    return render_template('index.html', candlestick_patterns=candlestick_patterns, stocks=stocks, pattern=pattern)
