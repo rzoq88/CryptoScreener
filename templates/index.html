@@ -1,0 +1,67 @@
+<html>
+<head>
+    <style>
+        body { font-family: arial; 
+            /* margin: 20px; */
+            }
+        td { padding: 5px; }
+        .bullish { background: green; color: white; }
+        .bearish { background: red; color: white; }
+        .content{display: flex;
+           /* flex-wrap: wrap; Optional. only if you want the items to wrap */
+           justify-content: center; /* For horizontal alignment */
+            align-items: center; /* For vertical alignment */}
+            .he{display: flex;
+           /* flex-wrap: wrap; Optional. only if you want the items to wrap */
+           justify-content: center; /* For horizontal alignment */
+            align-items: center; /* For vertical alignment */}
+            .form{display: flex;
+           /* flex-wrap: wrap; Optional. only if you want the items to wrap */
+           justify-content: center; /* For horizontal alignment */
+            align-items: center; /* For vertical alignment */}
+    </style>
+</head>
+<body>
+    
+    <h1 class="he">Stock Screener</h1>
+    <form class="form">
+        <select name="pattern">
+            <option value="">-- Select a Pattern --</option>
+            {% for key in candlestick_patterns %}
+                <option value="{{ key }}" {% if pattern == key %}selected="selected"{% endif %}>{{ candlestick_patterns[key] }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Scan" />
+    </form>
+    <div class="content">
+    <table>
+        <tr>
+            <th>symbol</th>
+            <th>company</th>
+            <th>signal</th>
+        </tr>
+        {% for stock in stocks %}
+            {% if stocks[stock][pattern] %}
+            <tr>
+                <td>
+                    {{ stock }}
+                </td>
+                <td>
+                    {{ stocks[stock]['company'] }}
+                </td>
+                <td class="{{ stocks[stock][pattern] }}">
+                    {{ stocks[stock][pattern]}}
+                </td>
+            <tr>
+                <td colspan="3">
+                    <img src="https://finviz.com/chart.ashx?t={{ stock }}&ty=c&ta=1&p=d&s=l" />
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+    </body>
+</body>
+</html>
